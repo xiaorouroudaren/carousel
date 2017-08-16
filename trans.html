@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,7 +18,7 @@
         #content_img{
             position: absolute;
             left: 0;
-            width: 1500px;
+            width: 2500px;
             height: 300px;
         }
         img{
@@ -70,77 +70,77 @@
         <img src="img/img1.jpg">
         <img src="img/img2.jpg">
         <img src="img/img3.jpg">
+        <img src="img/img2.jpg">
+        <img src="img/img3.jpg">
     </div>
-<div id="radius">
-    <span class="on"></span>
-    <span></span>
-    <span></span>
+    <div id="radius">
+        <span class="on"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <a class="trans_common" id="trans_left" href="#"> &lt;</a>
+    <a class="trans_common" id="trans_right" href="#">&gt;</a>
 </div>
 
-<a class="trans_common" id="trans_left" href="#"> &lt;</a>
-<a class="trans_common" id="trans_right" href="#">&gt;</a>
-</div>
 </body>
 <script>
     window.onload=function(){
+        var content_img=getObj("content_img");
+        var trans_left=getObj("trans_left");
+        var trans_right=getObj("trans_right");
+        var span=document.getElementsByTagName("span");
+        var content=getObj("content")
         var timer=null;
-        var timer1=null;
-        var content_img=getObj('content_img');
-        var trans_left=getObj('trans_left');
-        var trans_right=getObj('trans_right');
-       var span=document.getElementsByTagName('span');
-        var content=getObj('content')
+        var  timer1=null;
         trans_left.addEventListener("click",function(){
-            moving(0,-1000,500);
+            moving(0,-2000,500);
         });
         trans_right.addEventListener("click",function(){
-            moving(-1000,0,-500);
+            moving(-2000,0,-500);
         });
         function moving(edge_a,edge_b,speed){
-            var left_val=parseInt(content_img.style.left);
-            console.log(left_val);
-            if (left_val===edge_a){
-                left_val=edge_b;
+            var left_value=parseInt(content_img.style.left);
+            if(left_value===edge_a){
+                left_value=edge_b;
             }
             else {
-                left_val+=speed;
+                left_value+=speed;
             }
-            content_img.style.left=left_val+"px";
-            console.log(left_val);
-            for(var i=0;i<span.length;i++){
-                span[i].setAttribute("class","");
-            }
-            //点击span修改class为“on”；
-            span[left_val/-500].setAttribute("class","on");
-        }
-         for(var i=0;i<span.length;i++) {
-             (function (n) {
-                 span[n].onclick = function () {
-                     span_control(this, n);
-                 }
-             })(i)
-         }
-        function  span_control(that,num){
+            content_img.style.left=left_value+"px";
             for(var i=0;i<span.length;i++){
                 span[i].setAttribute("class","")
             }
-            that.setAttribute("class","on");
+            span[left_value/-500].setAttribute("class","on")
+        }
+        for(var i=0; i<span.length;i++){
+            ( function(n){
+                span[n].onclick=function(){
+                span_control(this,n)
+                }
+            })(i)
+        }
+        function span_control(that,num){
+           for(var i=0;i<span.length;i++){
+               span[i].setAttribute("class","");
+           }
+            that.setAttribute("class" ,"on");
             console.log(num);
-           content_img.style.left=num*(-500)+"px";
+            content_img.style.left=num*-500+"px";
         }
         timer=setInterval(function(){
-            moving(-1000,0,-500);
-        },2000);
+            moving(-2000,0,-500);
+        },1000);
         content.onmouseover=function(){
             clearInterval(timer);
             clearInterval(timer1);
         };
         content.onmouseout=function(){
-            clearInterval(timer);
-            clearInterval(timer1);
-            timer1=setInterval(function(){
-                moving(-1000,0,-500);
-            },2000);
+            timer1=setInterval(
+            function(){moving(-2000,0,-500)
+            },1000);
         }
     }
 </script>
